@@ -2,7 +2,9 @@ package com.quentillionaire.dddminimap;
 
 import com.google.common.base.Stopwatch;
 import com.quentillionaire.dddminimap.Networking.CommonProxy;
+import com.quentillionaire.dddminimap.Render.OverlayRenderer;
 import com.quentillionaire.dddminimap.Utillity.StringMap;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -10,11 +12,14 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import com.quentillionaire.dddminimap.Loaders.ConfigLoader;
 import com.quentillionaire.dddminimap.Utillity.Logger;
+import net.minecraftforge.common.MinecraftForge;
 
 import java.util.concurrent.TimeUnit;
 
 @Mod(modid = StringMap.ID, name = StringMap.Name, version = StringMap.VersionBuildName, acceptedMinecraftVersions = "["+StringMap.MinecraftVersion+"]")
 public class DDDMiniMapMod {
+
+    OverlayRenderer renderer = new OverlayRenderer();
     
     @Mod.Instance(StringMap.ID)
     public static DDDMiniMapMod instance;
@@ -38,7 +43,11 @@ public class DDDMiniMapMod {
     public void init(FMLInitializationEvent event) {
         Stopwatch watch = Stopwatch.createStarted();
             Logger.info("Initialization started");
-                launchTime += watch.elapsed(TimeUnit.MILLISECONDS);
+
+            MinecraftForge.EVENT_BUS.register(renderer);
+
+            launchTime += watch.elapsed(TimeUnit.MILLISECONDS);
+
             Logger.info("Initialization finished after " + watch.elapsed(TimeUnit.MILLISECONDS) + "ms");
         Logger.info("Initialization process successfully done");
     }
