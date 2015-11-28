@@ -11,7 +11,6 @@ public class StringMap {
     public static final String VersionPatch = "0";
     public static final String VersionBuildName = Name + "-" + MinecraftVersion + "-" + VersionMajor + "." + VersionMinor + "." + VersionPatch;
 
-    //Proxy Paths
-    public static final String clientProxyPath = "com.quentillionaire.dddminimap.Networking.ClientProxy";
-    public static final String serverProxyPath = "com.quentillionaire.dddminimap.Networking.CommonProxy";
+    //Command
+    public static final String CommandBaseName = "3DMiniMap";
 }

@@ -1,17 +1,19 @@
 package com.quentillionaire.dddminimap;
 
 import com.google.common.base.Stopwatch;
-import com.quentillionaire.dddminimap.Networking.CommonProxy;
+import com.quentillionaire.dddminimap.Command.BaseCommand;
+import com.quentillionaire.dddminimap.Loaders.ConfigLoader;
 import com.quentillionaire.dddminimap.Render.OverlayRenderer;
+import com.quentillionaire.dddminimap.Utillity.Logger;
 import com.quentillionaire.dddminimap.Utillity.StringMap;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import com.quentillionaire.dddminimap.Loaders.ConfigLoader;
-import com.quentillionaire.dddminimap.Utillity.Logger;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import net.minecraft.command.ICommandManager;
+import net.minecraft.command.ServerCommandManager;
+import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
 
 import java.util.concurrent.TimeUnit;
@@ -24,10 +26,19 @@ public class DDDMiniMapMod {
     @Mod.Instance(StringMap.ID)
     public static DDDMiniMapMod instance;
 
-    @SidedProxy(modId = StringMap.ID, clientSide = StringMap.clientProxyPath, serverSide = StringMap.serverProxyPath)
-    public static CommonProxy proxy;
-
     private double launchTime;
+
+    @Mod.EventHandler
+    public void onServerStarting(FMLServerStartingEvent event) {
+        Stopwatch watch = Stopwatch.createStarted();
+            Logger.info("Server-Starting event started");
+                MinecraftServer server = MinecraftServer.getServer();
+                    ICommandManager command = server.getCommandManager();
+                    ServerCommandManager manager = (ServerCommandManager) command;
+                manager.registerCommand(new BaseCommand());
+            Logger.info("Server-Starting event finished after + " + watch.elapsed(TimeUnit.MILLISECONDS) + "ms");
+        Logger.info("Server-Starting process successfully done");
+    }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {

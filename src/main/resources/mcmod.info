@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "dddminimap",
+  "name": "3D Minimap",
+  "description": "A 3D Minimap mod",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["Quentillionaire, EwyBoy"],
+  "credits": "Modmuss50 and Ichun for helpful open source code",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
