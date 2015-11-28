@@ -51,7 +51,7 @@ public class OverlayRenderer {
     }
 
     /** Getting the gui size from your Minecraft setting. 0 = small, 1 = medium, 2 = large, 3 = auto */
- /*   private size setMapSize() {
+ /*   private Size setMapSize() {
         switch (Minecraft.getMinecraft().gameSettings.guiScale) {
             case 0: size = size.SMALL;
             case 1: size = size.MEDIUM;
