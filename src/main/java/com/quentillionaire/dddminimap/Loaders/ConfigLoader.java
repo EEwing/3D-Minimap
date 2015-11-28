@@ -1,8 +1,8 @@
-package quentillionaire.dddminimap.Loaders;
+package com.quentillionaire.dddminimap.Loaders;
 
 import com.google.common.base.Stopwatch;
+import com.quentillionaire.dddminimap.Utillity.Logger;
 import net.minecraftforge.common.config.Configuration;
-import quentillionaire.dddminimap.Utillity.Logger;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;

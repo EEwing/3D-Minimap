@@ -1,8 +1,7 @@
-package quentillionaire.dddminimap.Utillity;
+package com.quentillionaire.dddminimap.Utillity;
 
 import cpw.mods.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
-import quentillionaire.dddminimap.Utillity.StringMap;
 
 public class Logger {
 

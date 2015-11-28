@@ -1,4 +1,4 @@
-package quentillionaire.dddminimap.Utillity;
+package com.quentillionaire.dddminimap.Utillity;
 
 public class StringMap {
 
