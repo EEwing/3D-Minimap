@@ -13,26 +13,45 @@ public class OverlayRenderer {
 
     public double mapSize = 0.25;
 
-    public Size size = Size.MEDIUM;
+    public SizeWidth sizeWidth = SizeWidth.MEDIUM;
+    public SizeHeight sizeHeight = SizeHeight.MEDIUM;
 
-    public enum Size {
+    public static int MCWindowHeight = Minecraft.getMinecraft().displayHeight, MCWindowWidth = Minecraft.getMinecraft().displayWidth;
+
+    public enum SizeWidth {
+        SMALL(350),
+        MEDIUM(500),
+        LARGE(650);
+
+        private int sizeWidth = 0;
+
+        SizeWidth(int s) {
+            this.sizeWidth = s;
+        }
+
+        public int getSize() {
+            return sizeWidth;
+        }
+    }
+
+    public enum SizeHeight {
         SMALL(200),
         MEDIUM(350),
         LARGE(500);
 
-        private int size = 0;
+        private int sizeHeight = 0;
 
-        Size(int s) {
-            this.size = s;
+        SizeHeight(int s) {
+            this.sizeHeight = s;
         }
 
         public int getSize() {
-            return size;
+            return sizeHeight;
         }
     }
 
     /** Getting the gui size from your Minecraft setting. 0 = small, 1 = medium, 2 = large, 3 = auto */
-    private Size setMapSize() {
+ /*   private size setMapSize() {
         switch (Minecraft.getMinecraft().gameSettings.guiScale) {
             case 0: size = size.SMALL;
             case 1: size = size.MEDIUM;
@@ -41,10 +60,10 @@ public class OverlayRenderer {
             default: size = size.MEDIUM;
         }
         return size;
-    }
+    }*/
 
     private static float borderThickness = 1.5f;
-    private static float transparency = 0.0f;
+    private static float transparency = 1.0f;
 
     /** Getting the surrounding blocks in a radius of 8 around the player and storing it in a array */
     private void getSurroundingBlocks(World world, EntityPlayer player) {
@@ -77,17 +96,22 @@ public class OverlayRenderer {
     /** Renders another square in the background of the map to give the illusion of a border around it*/
     private void renderBoarderFrame() {
         GL11.glPushMatrix();
+            GL11.glTranslated(-10 / 2, -10 / 2, 0);
+            GL11.glTranslated(10, 10, 0);
             GL11.glColor4f(0.2f,0.2f,0.2f,transparency);
-            GL11.glScaled(mapSize * size.getSize(), mapSize * size.getSize(), 0.0);
+            GL11.glScaled(mapSize * sizeWidth.getSize(), mapSize * sizeHeight.getSize(), 0.0);
             drawSquare();
         GL11.glPopMatrix();
     }
 
-    /** Renders the main frame cavnvas */
+    /** Renders the main frame canvas */
     private void renderMainFrame() {
+        int maxWidth = Minecraft.getMinecraft().displayWidth, maxHeight = Minecraft.getMinecraft().displayHeight;
         GL11.glPushMatrix();
+            GL11.glTranslated(-10 / 2, -10 / 2, 0);
+            GL11.glTranslated(10, 10, 0);
             GL11.glColor4f(0.8f,0.8f,0.8f,transparency);
-            GL11.glScaled((mapSize * size.getSize()) - borderThickness, (mapSize * size.getSize()) - borderThickness, 0.0);
+            GL11.glScaled((mapSize * sizeWidth.getSize()) - borderThickness, (mapSize * sizeHeight.getSize()) - borderThickness, 0.0);
             drawSquare();
         GL11.glPopMatrix();
     }
@@ -97,7 +121,5 @@ public class OverlayRenderer {
     public void render(RenderGameOverlayEvent event) {
         renderBoarderFrame();
         renderMainFrame();
-        Logger.info(Minecraft.getMinecraft().displayHeight + " " + Minecraft.getMinecraft().displayWidth);
-
     }
 }
