@@ -46,7 +46,6 @@ public class BaseCommand extends CommandBase {
         } else {
             if(args.length >= 2) {
                 Iterator var3 = modCommands.iterator();
-
                 while(var3.hasNext()) {
                     CommandBase command = (CommandBase)var3.next();
                     if(command.getCommandName().equalsIgnoreCase(args[0])) {
@@ -54,7 +53,6 @@ public class BaseCommand extends CommandBase {
                     }
                 }
             }
-
             return null;
         }
     }
@@ -71,6 +69,5 @@ public class BaseCommand extends CommandBase {
             CommandBase commandBase = (CommandBase)var0.next();
             commands.add(commandBase.getCommandName());
         }
-
     }
 }

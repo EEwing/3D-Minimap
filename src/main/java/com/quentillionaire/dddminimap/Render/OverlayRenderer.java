@@ -5,14 +5,9 @@ import com.quentillionaire.dddminimap.Render.Renderers.MiniMapRenderer;
 import com.quentillionaire.dddminimap.Utillity.Logger;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import org.lwjgl.opengl.GL11;
-
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL11.glPopMatrix;
 
 public class OverlayRenderer {
 
@@ -21,7 +16,7 @@ public class OverlayRenderer {
     private MiniMapRenderer renderer = new BasicMiniMapRenderer();
 
     /** Getting the gui size from your Minecraft setting. 0 = small, 1 = medium, 2 = large, 3 = auto */
- /*   private Size setMapSize() {
+    /*private Size setMapSize() {
         switch (Minecraft.getMinecraft().gameSettings.guiScale) {
             case 0: size = size.SMALL;
             case 1: size = size.MEDIUM;
@@ -55,7 +50,5 @@ public class OverlayRenderer {
     @SubscribeEvent
     public void render(RenderGameOverlayEvent event) {
         renderer.render(event.resolution, event.mouseX, event.mouseY);
-        //renderBoarderFrame();
-        //renderMainFrame();
     }
 }

@@ -1,15 +1,12 @@
 package com.quentillionaire.dddminimap.Render.Renderers;
 
-import com.quentillionaire.dddminimap.Utillity.Logger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
+
 import static org.lwjgl.opengl.GL11.*;
 
-/**
- * Created by Quent on 11/28/2015.
- */
-public abstract class MiniMapRenderer extends Gui{
+public abstract class MiniMapRenderer extends Gui {
 
     protected int scale = 75;
     protected float zoom = 1f;
@@ -30,35 +27,33 @@ public abstract class MiniMapRenderer extends Gui{
     public void render(ScaledResolution res, int mouseX, int mouseY) {
         Minecraft mc = Minecraft.getMinecraft();
         glPushMatrix();
+            location = MapLocation.UPPER_RIGHT;
+            transparency = 0.2f;
 
-        location = MapLocation.UPPER_RIGHT;
-        transparency = 0.2f;
+            switch(location) {
+                case UPPER_RIGHT:
+                    glTranslated(res.getScaledWidth()-scale-safeZone, safeZone, 0);
+                    break;
+                case UPPER_LEFT:
+                    glTranslated(safeZone, safeZone, 0);
+                    break;
+                case LOWER_LEFT:
+                    glTranslated(safeZone, res.getScaledHeight()-scale-safeZone, 0);
+                    break;
+                case LOWER_RIGHT:
+                    glTranslated(res.getScaledWidth()-scale-safeZone, res.getScaledHeight()-scale-safeZone, 0);
+                    break;
+                case CENTER:
+                    glTranslated((res.getScaledWidth()-scale)/2, (res.getScaledHeight()-scale)/2, 0);
+                    break;
+            }
 
-        switch(location) {
-            case UPPER_RIGHT:
-                glTranslated(res.getScaledWidth()-scale-safeZone, safeZone, 0);
-                break;
-            case UPPER_LEFT:
-                glTranslated(safeZone, safeZone, 0);
-                break;
-            case LOWER_LEFT:
-                glTranslated(safeZone, res.getScaledHeight()-scale-safeZone, 0);
-                break;
-            case LOWER_RIGHT:
-                glTranslated(res.getScaledWidth()-scale-safeZone, res.getScaledHeight()-scale-safeZone, 0);
-                break;
-            case CENTER:
-                glTranslated((res.getScaledWidth()-scale)/2, (res.getScaledHeight()-scale)/2, 0);
-                break;
-        }
+            // Render items
+            //if(hasBorder) renderFrame();
 
-        // Render items
-        if(hasBorder)
-            renderFrame();
-
-        glTranslated(borderSize, borderSize, 0);
-        glScaled(scale - 2*borderSize, scale - 2*borderSize, 0.0);
-        renderMap();
+            glTranslated(borderSize, borderSize, 0);
+            glScaled(scale - 2*borderSize, scale - 2*borderSize, 0.0);
+            renderMap();
 
         glPopMatrix();
     }
